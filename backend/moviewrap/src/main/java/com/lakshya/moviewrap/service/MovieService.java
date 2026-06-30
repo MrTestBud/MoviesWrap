@@ -25,6 +25,33 @@ public class MovieService {
     }
     
     public Movie getMovieById(String id) {
-    return movieRepository.findById(id).orElse(null);
-}
+        return movieRepository.findById(id).orElse(null);
+    }
+
+    public Movie deleteMovie(String id) {
+        Movie movie = movieRepository.findById(id).orElse(null);
+        if (movie != null) {
+            movieRepository.deleteById(id);
+        }
+        return movie;
+    }
+
+    public Movie updateMovie(String id , Movie updatedMovie){
+        Movie existingMovie = movieRepository.findById(id).orElse(null);
+        if (existingMovie == null) {
+            return null;
+        }
+
+        existingMovie.setTitle(updatedMovie.getTitle());
+        existingMovie.setGenre(updatedMovie.getGenre());
+        existingMovie.setDescription(updatedMovie.getDescription());
+        existingMovie.setRating(updatedMovie.getRating());
+
+        return movieRepository.save(existingMovie);
+    }
+
+    public List<Movie> searchMovies(String title) {
+        return movieRepository.findByTitleContainingIgnoreCase(title);
+    }
+    
 }
