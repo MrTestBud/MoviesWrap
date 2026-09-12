@@ -15,5 +15,7 @@ public class Movie {
     private String title;
     private String genre;
     private String description;
-    private Double rating;
+
+    private Double averageRating = 0.0;
+    private Integer totalReviews = 0;
 }
