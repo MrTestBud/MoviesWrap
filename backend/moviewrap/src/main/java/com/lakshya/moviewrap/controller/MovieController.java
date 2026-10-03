@@ -33,11 +33,19 @@ public class MovieController {
         return movieService.saveMovie(movie);
     }
 
+    // GET ALL MOVIES
     @GetMapping
     public List<Movie> getMovies() {
         return movieService.getAllMovies();
     }
 
+    // GET MOVIES SORTED BY RATING
+    @GetMapping("/sorted")
+    public List<Movie> getMoviesSortedByRating() {
+        return movieService.getMoviesSortedByRating();
+    }
+
+    // GET MOVIE BY ID
     @GetMapping("/{id}")
     public ResponseEntity<Movie> getMovieById(@PathVariable String id) {
 
@@ -48,6 +56,7 @@ public class MovieController {
         return ResponseEntity.ok(movie);
     }
 
+    // DELETE MOVIE BY ID
     @DeleteMapping("/{id}")
     public ResponseEntity<Movie> deleteMovie(@PathVariable String id) {
         Movie deletedMovie = movieService.deleteMovie(id);
@@ -57,6 +66,7 @@ public class MovieController {
         return ResponseEntity.ok(deletedMovie);
     }
 
+    // UPDATE MOVIE BY ID
     @PutMapping("/{id}")
     public ResponseEntity<Movie> updateMovie(
             @PathVariable String id,
@@ -68,8 +78,11 @@ public class MovieController {
         return ResponseEntity.ok(movie);
     }
     
+    // SEARCH MOVIES BY TITLE
     @GetMapping("/search")
     public List<Movie> searchMovies(@RequestParam String title) {
         return movieService.searchMovies(title);
     }
+
+    
 }

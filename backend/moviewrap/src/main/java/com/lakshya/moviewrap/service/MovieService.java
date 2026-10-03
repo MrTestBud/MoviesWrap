@@ -2,6 +2,7 @@ package com.lakshya.moviewrap.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.lakshya.moviewrap.model.Movie;
@@ -54,4 +55,13 @@ public class MovieService {
         return movieRepository.findByTitleContainingIgnoreCase(title);
     }
     
+    public List<Movie> getMoviesSortedByRating() {
+
+        Sort sort = Sort.by(
+                Sort.Direction.DESC,
+                "averageRating"
+        );
+
+        return movieRepository.findAll(sort);
+    }
 }
