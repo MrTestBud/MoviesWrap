@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.lakshya.moviewrap.model.Review;
 import com.lakshya.moviewrap.service.ReviewService;
 
+import jakarta.validation.Valid;
 @RestController
 @RequestMapping("/reviews")
 public class ReviewController {
@@ -23,7 +24,7 @@ public class ReviewController {
     }
 
     @PostMapping
-    public Review addReview(@RequestBody Review review) {
+    public Review addReview(@Valid @RequestBody Review review) {
 
         return reviewService.addReview(review);
     }

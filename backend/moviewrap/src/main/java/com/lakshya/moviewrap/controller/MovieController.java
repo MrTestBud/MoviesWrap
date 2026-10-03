@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.lakshya.moviewrap.model.Movie;
 import com.lakshya.moviewrap.service.MovieService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/movies")
 public class MovieController {
@@ -27,7 +29,7 @@ public class MovieController {
     }
 
     @PostMapping
-    public Movie addMovie(@RequestBody Movie movie) {
+    public Movie addMovie(@Valid @RequestBody Movie movie) {
         return movieService.saveMovie(movie);
     }
 
