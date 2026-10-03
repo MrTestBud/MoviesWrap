@@ -1,13 +1,13 @@
 package com.lakshya.moviewrap.service;
 
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
 import com.lakshya.moviewrap.model.Movie;
 import com.lakshya.moviewrap.model.Review;
 import com.lakshya.moviewrap.repository.MovieRepository;
 import com.lakshya.moviewrap.repository.ReviewRepository;
-
-import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class ReviewService {
@@ -23,6 +23,16 @@ public class ReviewService {
 
     // ADD REVIEW
     public Review addReview(Review review) {
+
+        boolean alreadyReviewed =
+            reviewRepository.existsByMovieIdAndReviewerNameIgnoreCase(
+                    review.getMovieId(),
+                    review.getReviewerName()
+            );
+
+        if (alreadyReviewed) {
+            return null;
+        }
 
         Review savedReview = reviewRepository.save(review);
 

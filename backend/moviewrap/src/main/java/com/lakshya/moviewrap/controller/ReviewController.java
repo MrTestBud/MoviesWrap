@@ -29,9 +29,16 @@ public class ReviewController {
 
     // ADD REVIEW
     @PostMapping
-    public Review addReview(@Valid @RequestBody Review review) {
+    public ResponseEntity<Review> addReview(
+            @Valid @RequestBody Review review) {
+        Review savedReview = reviewService.addReview(review);
+        
+        if(savedReview == null) {
+            return ResponseEntity.badRequest().build();
+        }
+        
 
-        return reviewService.addReview(review);
+        return ResponseEntity.ok(savedReview);
     }
 
     // GET REVIEWS FOR A MOVIE

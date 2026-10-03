@@ -9,4 +9,6 @@ import com.lakshya.moviewrap.model.Review;
 public interface ReviewRepository extends MongoRepository<Review, String> {
 
     List<Review> findByMovieId(String movieId);
+
+    boolean existsByMovieIdAndReviewerNameIgnoreCase(String movieId, String reviewerName);
 }
