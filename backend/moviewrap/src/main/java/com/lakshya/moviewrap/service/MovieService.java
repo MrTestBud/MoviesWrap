@@ -8,6 +8,9 @@ import org.springframework.stereotype.Service;
 import com.lakshya.moviewrap.model.Movie;
 import com.lakshya.moviewrap.repository.MovieRepository;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 @Service
 public class MovieService {
 
@@ -67,5 +70,9 @@ public class MovieService {
 
     public List<Movie> getMoviesByGenre(String genre) {
         return movieRepository.findByGenreIgnoreCase(genre);
+    }
+
+    public Page<Movie> getMoviesPaginated(Pageable pageable) {
+    return movieRepository.findAll(pageable);
     }
 }

@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import com.lakshya.moviewrap.model.Movie;
 import com.lakshya.moviewrap.service.MovieService;
 
@@ -90,6 +93,9 @@ public class MovieController {
         return movieService.searchMovies(title);
     }
 
-    
-    
+    // GET MOVIES WITH PAGINATION
+    @GetMapping("/page")
+    public Page<Movie> getMoviesPaginated(Pageable pageable) {
+    return movieService.getMoviesPaginated(pageable);
+    }
 }
