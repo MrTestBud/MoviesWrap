@@ -64,4 +64,8 @@ public class MovieService {
 
         return movieRepository.findAll(sort);
     }
+
+    public List<Movie> getMoviesByGenre(String genre) {
+        return movieRepository.findByGenreIgnoreCase(genre);
+    }
 }

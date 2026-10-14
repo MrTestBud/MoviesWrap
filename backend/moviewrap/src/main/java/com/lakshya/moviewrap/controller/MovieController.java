@@ -45,6 +45,12 @@ public class MovieController {
         return movieService.getMoviesSortedByRating();
     }
 
+    // GET MOVIES BY GENRE
+    @GetMapping("/genre/{genre}")
+    public List<Movie> getMoviesByGenre(@PathVariable String genre) {
+        return movieService.getMoviesByGenre(genre);
+    }
+
     // GET MOVIE BY ID
     @GetMapping("/{id}")
     public ResponseEntity<Movie> getMovieById(@PathVariable String id) {
@@ -84,5 +90,6 @@ public class MovieController {
         return movieService.searchMovies(title);
     }
 
+    
     
 }
