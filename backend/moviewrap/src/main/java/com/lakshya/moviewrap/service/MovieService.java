@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import com.lakshya.moviewrap.exception.MovieNotFoundException;
 import com.lakshya.moviewrap.model.Movie;
 import com.lakshya.moviewrap.repository.MovieRepository;
 
@@ -29,7 +30,10 @@ public class MovieService {
     }
     
     public Movie getMovieById(String id) {
-        return movieRepository.findById(id).orElse(null);
+        return movieRepository.findById(id)
+            .orElseThrow(() ->
+                new MovieNotFoundException("Movie not found with id: " + id)
+            );
     }
 
     public Movie deleteMovie(String id) {
@@ -73,6 +77,6 @@ public class MovieService {
     }
 
     public Page<Movie> getMoviesPaginated(Pageable pageable) {
-    return movieRepository.findAll(pageable);
+        return movieRepository.findAll(pageable);
     }
 }
