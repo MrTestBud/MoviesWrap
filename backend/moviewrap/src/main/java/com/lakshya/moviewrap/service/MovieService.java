@@ -53,7 +53,6 @@ public class MovieService {
         existingMovie.setTitle(updatedMovie.getTitle());
         existingMovie.setGenre(updatedMovie.getGenre());
         existingMovie.setDescription(updatedMovie.getDescription());
-        existingMovie.setAverageRating(updatedMovie.getAverageRating());
 
         return movieRepository.save(existingMovie);
     }

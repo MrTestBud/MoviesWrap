@@ -46,6 +46,9 @@ public class SecurityConfig {
                 .requestMatchers("/swagger-ui/**").permitAll()
                 .requestMatchers("/v3/api-docs/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/reviews/**").permitAll()
+                .requestMatchers(HttpMethod.POST, "/reviews").authenticated()
+                .requestMatchers(HttpMethod.PUT, "/reviews/**").authenticated()
+                .requestMatchers(HttpMethod.DELETE, "/reviews/**").authenticated()
                 .anyRequest().authenticated()
             )
 

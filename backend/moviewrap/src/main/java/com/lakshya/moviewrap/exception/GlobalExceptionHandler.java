@@ -20,6 +20,18 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(404).body(error);
     }
 
+    @ExceptionHandler(ForbiddenException.class)
+    public ResponseEntity<ErrorResponse> handleForbidden(
+            ForbiddenException exception) {
+
+        ErrorResponse error = new ErrorResponse(
+                exception.getMessage(),
+                403
+        );
+
+        return ResponseEntity.status(403).body(error);
+    }
+
     @ExceptionHandler(ReviewNotFoundException.class)
     public ResponseEntity<ErrorResponse> handleReviewNotFound(
             ReviewNotFoundException exception) {

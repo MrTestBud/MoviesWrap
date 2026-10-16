@@ -1,7 +1,9 @@
 package com.lakshya.moviewrap.service;
 
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import io.jsonwebtoken.Jwts;
@@ -12,26 +14,22 @@ import javax.crypto.SecretKey;
 @Service
 public class JwtService {
 
-    private final String SECRET_KEY =
-            "my-super-secret-key-for-moviewrap-jwt-123456";
+    private final SecretKey key;
 
-    private final SecretKey key =
-            Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
+    public JwtService(@Value("${moviewrap.jwt.secret}") String secret) {
+        this.key = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
+    }
 
     public String generateToken(String username) {
-
         return Jwts.builder()
                 .subject(username)
                 .issuedAt(new Date())
-                .expiration(
-                        new Date(System.currentTimeMillis() + 1000 * 60 * 60)
-                )
+                .expiration(new Date(System.currentTimeMillis() + 1000L * 60 * 60))
                 .signWith(key)
                 .compact();
     }
 
     public String extractUsername(String token) {
-
         return Jwts.parser()
                 .verifyWith(key)
                 .build()
