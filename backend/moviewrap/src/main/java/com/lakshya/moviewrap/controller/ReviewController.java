@@ -56,10 +56,6 @@ public class ReviewController {
 
         Review review = reviewService.updateReview(id, updatedReview);
 
-        if (review == null) {
-            return ResponseEntity.notFound().build();
-        }
-
         return ResponseEntity.ok(review);
     }
 
@@ -68,10 +64,6 @@ public class ReviewController {
     public ResponseEntity<Review> deleteReview(@PathVariable String id) {
 
         Review deletedReview = reviewService.deleteReview(id);
-
-        if (deletedReview == null) {
-            return ResponseEntity.notFound().build();
-        }
 
         return ResponseEntity.ok(deletedReview);
     }

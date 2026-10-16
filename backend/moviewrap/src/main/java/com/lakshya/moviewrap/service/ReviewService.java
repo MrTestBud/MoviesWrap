@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.lakshya.moviewrap.exception.ReviewNotFoundException;
 import com.lakshya.moviewrap.model.Movie;
 import com.lakshya.moviewrap.model.Review;
 import com.lakshya.moviewrap.repository.MovieRepository;
@@ -48,14 +49,14 @@ public class ReviewService {
     }
 
     // UPDATE REVIEW
-    public Review updateReview(String id, Review updatedReview) {
+   public Review updateReview(String id, Review updatedReview) {
 
         Review existingReview = reviewRepository.findById(id)
-                .orElse(null);
-
-        if (existingReview == null) {
-            return null;
-        }
+                .orElseThrow(() ->
+                        new ReviewNotFoundException(
+                                "Review not found with id: " + id
+                        )
+                );
 
         existingReview.setReviewerName(updatedReview.getReviewerName());
         existingReview.setRating(updatedReview.getRating());
@@ -72,11 +73,11 @@ public class ReviewService {
     public Review deleteReview(String id) {
 
         Review review = reviewRepository.findById(id)
-                .orElse(null);
-
-        if (review == null) {
-            return null;
-        }
+                .orElseThrow(() ->
+                        new ReviewNotFoundException(
+                                "Review not found with id: " + id
+                        )
+                );
 
         reviewRepository.deleteById(id);
 
