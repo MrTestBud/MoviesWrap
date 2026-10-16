@@ -19,7 +19,6 @@ public class Review {
     @NotBlank
     private String movieId;
 
-    @NotBlank
     private String reviewerName;
 
     @Min(1)

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.Authentication;
 
 import com.lakshya.moviewrap.model.Review;
 import com.lakshya.moviewrap.service.ReviewService;
@@ -30,13 +31,18 @@ public class ReviewController {
     // ADD REVIEW
     @PostMapping
     public ResponseEntity<Review> addReview(
-            @Valid @RequestBody Review review) {
+            @Valid @RequestBody Review review,
+            Authentication authentication) {
+
+        String username = authentication.getName();
+
+        review.setReviewerName(username);
+
         Review savedReview = reviewService.addReview(review);
-        
-        if(savedReview == null) {
+
+        if (savedReview == null) {
             return ResponseEntity.badRequest().build();
         }
-        
 
         return ResponseEntity.ok(savedReview);
     }
