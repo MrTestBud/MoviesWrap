@@ -3,9 +3,11 @@ package com.lakshya.moviewrap.controller;
 import com.lakshya.moviewrap.model.RegisterRequest;
 import com.lakshya.moviewrap.model.User;
 import com.lakshya.moviewrap.service.AuthService;
-
+import com.lakshya.moviewrap.model.AuthResponse;
+import com.lakshya.moviewrap.model.LoginRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 
 @RestController
 @RequestMapping("/auth")
@@ -28,6 +30,26 @@ public class AuthController {
                     .body("Username already exists");
         }
 
-        return ResponseEntity.ok(user);
+        AuthResponse response = new AuthResponse(
+                user.getId(),
+                user.getUsername()
+        );
+
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<?> login(
+            @RequestBody LoginRequest request) {
+
+        String token = authService.login(request);
+
+        if (token == null) {
+            return ResponseEntity
+                    .status(401)
+                    .body("Invalid username or password");
+        }
+
+        return ResponseEntity.ok(token);
     }
 }
