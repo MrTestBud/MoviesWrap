@@ -1,0 +1,78 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Segoe UI", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --color-ink: #07040f;
+  --color-panel: rgba(18, 10, 32, 0.72);
+  --color-violet: #7c3aed;
+  --color-glow: #c084fc;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: #07040f;
+  color: #f4f0ff;
+  font-family: var(--font-sans);
+}
+
+#root {
+  min-height: 100vh;
+}
+
+::selection {
+  background: #7c3aed;
+  color: white;
+}
+
+:focus-visible {
+  outline: 2px solid #c084fc;
+  outline-offset: 3px;
+}
+
+.glass-panel {
+  background: linear-gradient(180deg, rgba(28, 14, 48, 0.78), rgba(12, 7, 22, 0.72));
+  border: 1px solid rgba(168, 85, 247, 0.28);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45), 0 0 40px rgba(124, 58, 237, 0.08);
+  backdrop-filter: blur(18px);
+}
+
+.page-shell {
+  background:
+    radial-gradient(circle at 12% -10%, rgba(124, 58, 237, 0.28), transparent 36%),
+    radial-gradient(circle at 90% 8%, rgba(192, 132, 252, 0.12), transparent 28%),
+    radial-gradient(circle at 50% 100%, rgba(76, 29, 149, 0.18), transparent 40%),
+    #07040f;
+}
+
+.film-disc {
+  transform-style: preserve-3d;
+  animation: spin-disc 18s linear infinite;
+}
+
+@keyframes spin-disc {
+  from {
+    transform: rotateY(0deg) rotateX(12deg);
+  }
+  to {
+    transform: rotateY(360deg) rotateX(12deg);
+  }
+}
+
+.float-slow {
+  animation: float-slow 7s ease-in-out infinite;
+}
+
+@keyframes float-slow {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-14px);
+  }
+}
